@@ -31,3 +31,10 @@
   - wiki-backlinks.svelte, wiki-revisions.svelte 이미 API 호출 구현
   - 빨간 링크 스타일: wiki-link.ts에서 isBroken → brokenLinkClass
 - go build 성공 (에러 0)
+- Step 5 진행: 통합 테스트
+  - wiki_backlinks 테이블 자동 생성 ✅
+  - GET /api/v2/posts/1/backlinks → {"success":true,"data":[]} ✅
+  - /wiki 페이지 200 렌더링 ✅ (기본 게시판 레이아웃)
+  - 발견: BACKEND_URL 환경변수 누락으로 SSR 전체 500 발생 → .env.local에 추가로 해결
+  - 발견: g5_write_message 테이블 누락 → CREATE TABLE로 해결
+  - 미완료: 로그인 후 문서 작성 → [[위키링크]] 실제 테스트

@@ -55,11 +55,19 @@ Angple 위키 플러그인에 핵심 위키 기능 구현:
 - [x] 빨간 링크 스타일 — WikiLink 확장에서 isBroken → wiki-link-broken 클래스
 
 ### Step 5: 통합 테스트
-- [ ] 위키 게시판 생성 (board_type: wiki)
-- [ ] 문서 작성 → `[[다른문서]]` 입력 → 링크 렌더링 확인
+- [x] 위키 게시판 생성 (v2_boards slug='wiki', settings.boardType='wiki')
+- [x] wiki_backlinks 테이블 자동 생성 확인
+- [x] GET /api/v2/posts/:id/backlinks API 정상 응답
+- [x] /wiki 페이지 200 정상 렌더링
+- [ ] 문서 작성 → `[[다른문서]]` 입력 → 링크 렌더링 확인 (로그인 필요)
 - [ ] 다른 문서에서 백링크 패널에 표시되는지 확인
 - [ ] 리비전 목록에 편집 요약 표시 확인
 - [ ] 빨간 링크 (존재하지 않는 문서) 스타일 확인
+
+### 발견된 이슈
+- BACKEND_URL 환경변수 누락 시 SSR fetch 실패 (모든 게시판 500)
+- g5_write_message 테이블 누락 (DB 덤프에 미포함)
+- wiki-board.svelte 커스텀 레이아웃이 적용되려면 boardType 매칭 로직 필요
 
 ## Definition of Done
 - [ ] `[[문서명]]` 입력 시 에디터에서 위키링크로 변환
