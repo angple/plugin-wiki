@@ -1,0 +1,109 @@
+{
+    "id": "wiki",
+    "name": "위키",
+    "version": "0.1.0",
+    "author": {
+        "name": "Angple",
+        "url": "https://angple.com"
+    },
+    "category": "content",
+    "license": "MIT",
+    "description": "Wikipedia 스타일 위키 플러그인. 리비전 히스토리, 백링크, 목차, 토론 페이지, 위키 전용 테마를 지원합니다.",
+    "components": [
+        {
+            "id": "wiki-board",
+            "name": "위키 문서 목록",
+            "slot": "board-list",
+            "path": "components/wiki-board.svelte",
+            "priority": 10
+        },
+        {
+            "id": "wiki-write-form",
+            "name": "위키 편집 폼",
+            "slot": "write-form",
+            "path": "components/wiki-write-form.svelte",
+            "priority": 10
+        },
+        {
+            "id": "wiki-toc",
+            "name": "목차 (Table of Contents)",
+            "slot": "post-detail-extra",
+            "path": "components/wiki-toc.svelte",
+            "priority": 5
+        },
+        {
+            "id": "wiki-backlinks",
+            "name": "백링크 패널",
+            "slot": "post-detail-extra",
+            "path": "components/wiki-backlinks.svelte",
+            "priority": 50
+        },
+        {
+            "id": "wiki-revisions",
+            "name": "수정 내역",
+            "slot": "post-detail-extra",
+            "path": "components/wiki-revisions.svelte",
+            "priority": 60
+        }
+    ],
+    "hooks": [
+        {
+            "name": "board.layout.register",
+            "type": "action",
+            "callback": "hooks/register-wiki.ts",
+            "priority": 10
+        }
+    ],
+    "settings": {
+        "wiki_theme": {
+            "label": "위키 테마",
+            "type": "select",
+            "default": "classic",
+            "options": [
+                { "label": "클래식 (위키피디아 스타일)", "value": "classic" },
+                { "label": "모던 (카드 기반)", "value": "modern" },
+                { "label": "미니멀 (깔끔한 문서)", "value": "minimal" }
+            ],
+            "description": "위키 문서 페이지의 레이아웃 스타일"
+        },
+        "show_toc": {
+            "label": "목차 표시",
+            "type": "boolean",
+            "default": true,
+            "description": "문서 상단에 자동 목차 표시"
+        },
+        "show_backlinks": {
+            "label": "백링크 표시",
+            "type": "boolean",
+            "default": true,
+            "description": "문서 하단에 이 문서를 참조하는 다른 문서 목록 표시"
+        },
+        "show_revisions": {
+            "label": "수정 내역 표시",
+            "type": "boolean",
+            "default": true,
+            "description": "문서 하단에 최근 수정 내역 표시"
+        },
+        "enable_discussion": {
+            "label": "토론 활성화",
+            "type": "boolean",
+            "default": true,
+            "description": "각 위키 문서에 토론(댓글) 기능 활성화"
+        },
+        "enable_namespaces": {
+            "label": "네임스페이스 사용",
+            "type": "boolean",
+            "default": false,
+            "description": "Main:, Help:, Template: 등 네임스페이스 활성화"
+        },
+        "max_revisions_display": {
+            "label": "표시할 최근 수정 내역 수",
+            "type": "number",
+            "default": 10,
+            "min": 3,
+            "max": 50,
+            "description": "문서 하단에 표시할 최근 수정 내역 수"
+        }
+    },
+    "tags": ["wiki", "위키", "문서", "백과사전", "리비전"]
+}
