@@ -28,11 +28,11 @@ Angple 위키 플러그인에 핵심 위키 기능 구현:
   - 파일: `internal/service/v2/wiki_link_parser.go`
   - 기능: HTML 콘텐츠에서 `[[문서명]]` 패턴 추출
   - 정규식: `\[\[([^\]]+)\]\]`
-- [ ] post_save 시 백링크 갱신 로직
+- [x] post_save 시 백링크 갱신 로직
   - 기존 백링크 삭제 (SourcePostID 기준)
   - 새 링크 파싱 → 대상 문서 조회 → 백링크 INSERT
   - 존재하지 않는 문서 → IsBroken = true
-- [ ] PostService.UpdatePost에 훅 연동
+- [x] PostService.UpdatePost에 훅 연동 (main.go에서 직접 goroutine)
   - 또는 HookManager.Do("post_save", data) 활용
 
 ### Step 3: 프론트엔드 — TipTap WikiLink 익스텐션
@@ -50,9 +50,9 @@ Angple 위키 플러그인에 핵심 위키 기능 구현:
   - 방법 C: wiki-write-form에서 별도 에디터 인스턴스 (비효율)
 
 ### Step 4: 프론트엔드 — 백링크/리비전 UI 연동
-- [ ] wiki-backlinks.svelte — API 연동 확인 (Step 1의 API)
-- [ ] wiki-revisions.svelte — 편집 요약 표시 추가
-- [ ] 빨간 링크 스타일 — 존재하지 않는 문서 링크는 빨간색
+- [x] wiki-backlinks.svelte — API 연동 확인 (Step 1의 API)
+- [x] wiki-revisions.svelte — 편집 요약 표시 (edit_summary 필드 이미 포함)
+- [x] 빨간 링크 스타일 — WikiLink 확장에서 isBroken → wiki-link-broken 클래스
 
 ### Step 5: 통합 테스트
 - [ ] 위키 게시판 생성 (board_type: wiki)

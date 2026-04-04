@@ -22,3 +22,12 @@
   - InputRule: `[[text]]$` → WikiLink 노드
   - renderHTML: `<a data-wiki-link class="wiki-link">`
   - renderText: `[[title]]` (마크다운 호환)
+- Step 2 완료: post_save 백링크 자동 갱신
+  - `cmd/api/main.go` — WikiBacklinkRepository 초기화, AutoMigrate
+  - GET /api/v2/posts/:id/backlinks 라우트 등록
+  - post 생성/수정 시 [[링크]] 파싱 → wiki_backlinks 갱신 (goroutine)
+  - 빨간 링크: IsBroken=true
+- Step 4 완료: UI 연동 확인
+  - wiki-backlinks.svelte, wiki-revisions.svelte 이미 API 호출 구현
+  - 빨간 링크 스타일: wiki-link.ts에서 isBroken → brokenLinkClass
+- go build 성공 (에러 0)

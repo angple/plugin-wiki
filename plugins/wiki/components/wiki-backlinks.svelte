@@ -6,7 +6,7 @@
     import Link2 from '@lucide/svelte/icons/link-2';
 
     let { postId }: { postId: number } = $props();
-    let backlinks = $state<Array<{ id: number; title: string; board_slug: string }>>([]);
+    let backlinks = $state<Array<{ id: number; title: string; board_slug: string; source_post_id: number; target_post_id: number; link_text: string; is_broken: boolean }>>([]);
     let isLoading = $state(true);
 
     $effect(() => {
