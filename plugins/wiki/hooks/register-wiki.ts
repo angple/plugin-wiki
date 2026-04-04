@@ -13,6 +13,7 @@ import WikiWriteForm from '../components/wiki-write-form.svelte';
 import WikiToc from '../components/wiki-toc.svelte';
 import WikiBacklinks from '../components/wiki-backlinks.svelte';
 import WikiRevisions from '../components/wiki-revisions.svelte';
+import WikiArticleTabs from '../components/wiki-article-tabs.svelte';
 
 export default function registerWikiLayouts() {
     // 1. 위키 게시판 타입 등록
@@ -21,7 +22,18 @@ export default function registerWikiLayouts() {
     // 2. 위키 글쓰기 폼 등록
     writeFormRegistry.register('wiki', WikiWriteForm, 'plugin');
 
-    // 3. 목차 (TOC) — post.before_content 슬롯
+    // 3. 문서 탭 (문서|토론|편집|역사) — post.before_content, 가장 먼저
+    postSlotRegistry.register('post.before_content', {
+        component: WikiArticleTabs,
+        condition: (boardType: string) => boardType === 'wiki',
+        priority: 1,
+        propsMapper: (data: Record<string, unknown>) => ({
+            postId: (data.post as { id?: number })?.id,
+            boardId: data.boardId as string
+        })
+    });
+
+    // 4. 목차 (TOC) — post.before_content 슬롯
     postSlotRegistry.register('post.before_content', {
         component: WikiToc,
         condition: (boardType: string) => boardType === 'wiki',

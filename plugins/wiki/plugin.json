@@ -25,6 +25,13 @@
             "priority": 10
         },
         {
+            "id": "wiki-article-tabs",
+            "name": "문서 탭 (문서|토론|편집|역사)",
+            "slot": "post-detail-extra",
+            "path": "components/wiki-article-tabs.svelte",
+            "priority": 1
+        },
+        {
             "id": "wiki-toc",
             "name": "목차 (Table of Contents)",
             "slot": "post-detail-extra",

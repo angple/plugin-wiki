@@ -38,3 +38,10 @@
   - 발견: BACKEND_URL 환경변수 누락으로 SSR 전체 500 발생 → .env.local에 추가로 해결
   - 발견: g5_write_message 테이블 누락 → CREATE TABLE로 해결
   - 미완료: 로그인 후 문서 작성 → [[위키링크]] 실제 테스트
+
+## Session: 2026-04-04 — 문서 탭 + TOC + 메타정보 개선
+- wiki-article-tabs.svelte: 문서|토론|편집|역사 탭 (Wikipedia Vector 스킨 스타일)
+- register-wiki.ts: 문서 탭 슬롯 등록 (post.before_content, priority 1)
+- wiki-toc.svelte: sticky 포지셔닝 + 위키 색상 적용
+- wiki-revisions.svelte: "이 문서는 X에 편집되었습니다" Wikipedia 스타일 메타정보
+- plugin.json: wiki-article-tabs 컴포넌트 추가
