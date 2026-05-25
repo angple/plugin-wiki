@@ -8,6 +8,7 @@
 import { boardTypeRegistry } from '$lib/components/features/board/board-type-registry.js';
 import { postSlotRegistry } from '$lib/components/features/board/post-slot-registry.js';
 import { writeFormRegistry } from '$lib/components/features/board/write-form-registry.js';
+import { contentFormatRegistry } from '$lib/components/features/board/content-format-registry.js';
 import WikiBoard from '../components/wiki-board.svelte';
 import WikiWriteForm from '../components/wiki-write-form.svelte';
 import WikiToc from '../components/wiki-toc.svelte';
@@ -16,6 +17,9 @@ import WikiRevisions from '../components/wiki-revisions.svelte';
 import WikiArticleTabs from '../components/wiki-article-tabs.svelte';
 
 export default function registerWikiLayouts() {
+    // 0. 위키 본문은 Markdown 네이티브 — 에디터를 마크다운 소스 모드로, 저장도 마크다운 원문으로
+    contentFormatRegistry.register('wiki', 'markdown', 'plugin');
+
     // 1. 위키 게시판 타입 등록
     boardTypeRegistry.register('wiki', WikiBoard, 'plugin');
 

@@ -10,8 +10,29 @@
 
     let { content = '' }: { content: string } = $props();
 
-    const tocItems = $derived<TocItem[]>(() => {
+    // 마크다운 원문에서 헤딩(## ~ ####) 추출. 코드펜스(``` / ~~~) 내부는 제외.
+    function parseMarkdownHeadings(md: string): TocItem[] {
+        const items: TocItem[] = [];
+        let inFence = false;
+        const lines = md.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            if (/^\s*(```|~~~)/.test(line)) {
+                inFence = !inFence;
+                continue;
+            }
+            if (inFence) continue;
+            const m = /^\s{0,3}(#{2,4})\s+(.+?)\s*#*\s*$/.exec(line);
+            if (m) {
+                items.push({ id: `heading-${i}`, text: m[2].trim(), level: m[1].length });
+            }
+        }
+        return items;
+    }
+
+    const tocItems = $derived<() => TocItem[]>(() => {
         if (!content) return [];
+        // 1) HTML 헤딩 (WYSIWYG/HTML 본문)
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, 'text/html');
         const headings = doc.querySelectorAll('h2, h3, h4');
@@ -24,6 +45,10 @@
                 level: parseInt(h.tagName[1])
             });
         });
+        // 2) HTML 헤딩이 없으면 마크다운 원문으로 파싱 (위키 = 마크다운 네이티브)
+        if (items.length === 0) {
+            return parseMarkdownHeadings(content);
+        }
         return items;
     });
 
